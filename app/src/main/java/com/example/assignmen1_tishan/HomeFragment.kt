@@ -1,6 +1,7 @@
 package com.example.assignmen1_tishan
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +69,9 @@ class HomeFragment : Fragment() {
         binding.myViewModel=viewModelHome
         binding.lifecycleOwner = this
 
+
+
+
         binding.viewTransaction.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_viewTransactionsFragment)
         }
@@ -77,10 +81,25 @@ class HomeFragment : Fragment() {
         try {
 
             lifecycleScope.launch {
+                val count = viewModelHome.getCount()
+                binding.countTv.text = count.toString()
                 //Average
-                var average = viewModelHome.getAVG()
+
+                var average :Double? = viewModelHome.getAVG()
+                if(average==null){
+                    average = 0.0
+                }
                 var truncatedNumber: Double = truncate(average * 100) / 100
-                binding.averageTv.text = "Rs. "+truncatedNumber.toString()
+
+
+                try {
+                    binding.averageTv.text = "Rs. "+truncatedNumber.toString()
+                }
+                catch (e:Exception)
+                {
+                    Toast.makeText(this@HomeFragment.requireContext(),e.toString(),Toast.LENGTH_LONG).show()
+                }
+//                binding.averageTv.text = "Rs. "+truncatedNumber.toString()
 //                val bundleAvg = bundleOf("average_transaction" to average.toString())
 //                binding.avgTransaction.setOnClickListener {
 //                    it.findNavController().navigate(R.id.action_homeFragment_to_avgFragment, bundleAvg)
@@ -95,8 +114,13 @@ class HomeFragment : Fragment() {
                 var bundleMaxi = bundleOf("maxi_transaction" to maxi.toString(),
                     "max_expense_name" to maxExpense,"date_of_max_expense" to dateOfMaxExpense)
                 binding.maxTransaction.setOnClickListener{
-                    //Toast.makeText(this@HomeFragment.requireContext(),maxExpense,Toast.LENGTH_LONG).show()
-                    it.findNavController().navigate(R.id.action_homeFragment_to_maximumFragment,bundleMaxi)
+                    if (count == 0){
+                        Toast.makeText(this@HomeFragment.requireContext(),"NO Transactions Till Now",Toast.LENGTH_LONG).show()
+                    }
+                    else {
+                        it.findNavController()
+                            .navigate(R.id.action_homeFragment_to_maximumFragment, bundleMaxi)
+                    }
                 }
                 //Maximum
 
@@ -108,15 +132,29 @@ class HomeFragment : Fragment() {
                 var bundleMini = bundleOf("mini_transaction" to mini.toString(),
                     "min_expense_name" to minExpense,"date_of_min_expense" to minExpenseDate)
                 binding.minTransaction.setOnClickListener{
-                    //Toast.makeText(this@HomeFragment.requireContext(),minExpense,Toast.LENGTH_LONG).show()
-                    it.findNavController().navigate(R.id.action_homeFragment_to_minimumFragment,bundleMini)
+                    if (count == 0){
+                        Toast.makeText(this@HomeFragment.requireContext(),"NO Transactions Till Now",Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        //Toast.makeText(this@HomeFragment.requireContext(),minExpense,Toast.LENGTH_LONG).show()
+                        it.findNavController().navigate(R.id.action_homeFragment_to_minimumFragment,bundleMini)
+                    }
+
                 }
                 //Minimum
 
                 //Total
-                var total = viewModelHome.getTotal()
+
+                var total = viewModelHome.getTotal()?:0.0
                 var truncatedTotal: Double = truncate(total * 100) / 100
-                binding.totalTv.text = "Rs. "+ truncatedTotal.toString()
+                try {
+                    binding.totalTv.text = "Rs. "+ truncatedTotal.toString()
+                }
+                catch (e:Exception)
+                {
+                    Toast.makeText(this@HomeFragment.requireContext(),e.toString(),Toast.LENGTH_LONG).show()
+                }
+
 //                var bundleTotal = bundleOf("total_transaction" to total.toString())
 //                binding.totalTransaction.setOnClickListener {
 //                    it.findNavController().navigate(R.id.action_homeFragment_to_totalFragment,bundleTotal)

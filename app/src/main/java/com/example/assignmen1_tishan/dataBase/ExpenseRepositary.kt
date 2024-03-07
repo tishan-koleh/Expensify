@@ -29,7 +29,7 @@ class ExpenseRepositary(private val dao:ExpenseDAO) {
     }
 
     fun getAvg():Double{
-        return dao.getAvg()
+        return dao.getAvg()?:0.0
     }
 
     fun getMaxi():Double{
@@ -41,18 +41,22 @@ class ExpenseRepositary(private val dao:ExpenseDAO) {
     }
 
     fun getTotal():Double{
-        return dao.getTotal()
+        return dao.getTotal()?:0.0
     }
 
 
     fun getMaxExpense():Expense{
-        return dao.getMaxExpense()
+        return dao.getMaxExpense()?:(Expense(0,"",0.0,""))
     }
+
 
     fun getMinExpense():Expense{
-        return dao.getMinExpense()
+        return dao.getMinExpense()?:(Expense(0,"",0.0,""))
     }
 
+    fun getCount():Int{
+        return dao.getCount()
+    }
 
 
 

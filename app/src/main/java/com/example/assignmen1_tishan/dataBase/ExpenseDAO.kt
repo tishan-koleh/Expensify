@@ -51,4 +51,7 @@ interface ExpenseDAO {
     @Query("SELECT * FROM expense_table WHERE price = (SELECT MIN(price) FROM expense_table)")
     fun getMinExpense():Expense
 
+    @Query("Select COUNT(id) from expense_table")
+    fun getCount():Int
+
 }

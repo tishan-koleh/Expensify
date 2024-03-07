@@ -74,6 +74,8 @@ class ExpenseDatabaseViewModel(private val repo : ExpenseRepositary):ViewModel()
         }.join()
         return x
     }
+
+
     suspend fun getTotal():Double{
         var x = 0.0
         viewModelScope.launch(Dispatchers.IO) {
@@ -123,6 +125,17 @@ class ExpenseDatabaseViewModel(private val repo : ExpenseRepositary):ViewModel()
 
 
         }.join()
+    }
+
+
+
+    suspend fun getCount():Int{
+        var x :Int? = null
+        viewModelScope.launch(Dispatchers.IO){
+            var deff = async { repo.getCount() }
+            x = deff.await()
+        }.join()
+        return x!!
     }
 
 
