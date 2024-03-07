@@ -68,6 +68,10 @@ class HomeFragment : Fragment() {
         binding.myViewModel=viewModelHome
         binding.lifecycleOwner = this
 
+        binding.viewTransaction.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_viewTransactionsFragment)
+        }
+
 
 
         try {
