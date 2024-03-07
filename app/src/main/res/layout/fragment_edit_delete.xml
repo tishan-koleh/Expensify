@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="myViewModel"
+            type="com.example.assignmen1_tishan.viewModels.ExpenseDatabaseViewModel" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/frameLayout8"
     android:layout_width="match_parent"
@@ -9,7 +14,8 @@
     tools:context=".EditDeleteFragment">
 
     <EditText
-        android:id="@+id/price_tv"
+        android:text="@{myViewModel.date}"
+        android:id="@+id/date_tv"
         android:layout_width="253dp"
         android:layout_height="54dp"
         android:textSize="16sp"
@@ -36,6 +42,7 @@
         app:layout_constraintVertical_bias="0.604" />
 
     <EditText
+        android:text="@{myViewModel.name}"
         android:id="@+id/name_tv"
         android:layout_width="253dp"
         android:layout_height="54dp"
@@ -63,7 +70,8 @@
         app:layout_constraintVertical_bias="0.604" />
 
     <EditText
-        android:id="@+id/date_tv"
+        android:text="@{myViewModel.price.toString()}"
+        android:id="@+id/price_tv"
         android:layout_width="253dp"
         android:layout_height="54dp"
         android:textSize="16sp"

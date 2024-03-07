@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.assignmen1_tishan.dataBase.Expense
 import com.example.assignmen1_tishan.dataBase.ExpenseDatabase
 import com.example.assignmen1_tishan.dataBase.ExpenseRepositary
 import com.example.assignmen1_tishan.databinding.FragmentViewTransactionsBinding
@@ -59,8 +61,10 @@ class ViewTransactionsFragment : Fragment() {
             binding.myRecyclerView.layoutManager = LinearLayoutManager(this@ViewTransactionsFragment.requireContext())
             viewmodelRecycler.expenses.observe(viewLifecycleOwner, Observer {
                 Log.i("MYTAG",it.toString())
-                binding.myRecyclerView.adapter = MyRecyclerViewAdapter(it)
+                binding.myRecyclerView.adapter = MyRecyclerViewAdapter(it,{selectedItem:Expense->recyclerViewClicked(selectedItem)})
             })
+
+
 
 
 
@@ -69,10 +73,12 @@ class ViewTransactionsFragment : Fragment() {
 
         return binding.root
     }
-
-    fun displayExpenses(){
+    fun recyclerViewClicked(expense:Expense){
+        Toast.makeText(this@ViewTransactionsFragment.requireContext(),"${expense.name} is selected",Toast.LENGTH_SHORT).show()
 
     }
+
+
 
 
 

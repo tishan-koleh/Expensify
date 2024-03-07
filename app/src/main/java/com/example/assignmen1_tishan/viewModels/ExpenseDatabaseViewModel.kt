@@ -9,6 +9,7 @@ import com.example.assignmen1_tishan.dataBase.ExpenseRepositary
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ExpenseDatabaseViewModel(private val repo : ExpenseRepositary):ViewModel() {
 
@@ -99,6 +100,29 @@ class ExpenseDatabaseViewModel(private val repo : ExpenseRepositary):ViewModel()
             x = deff.await()
         }.join()
         return x!!
+    }
+
+
+    var id = MutableLiveData<Int>()
+    var name = MutableLiveData<String>()
+    var price = MutableLiveData<Double>()
+    var date = MutableLiveData<String>()
+    suspend fun setExpenseData(expense: Expense){
+        viewModelScope.launch(Dispatchers.IO){
+            var d1 = async { expense.id }
+            var d2 = async { expense.name }
+            var d3 = async { expense.price }
+            var  d4 = async { expense.date }
+
+            withContext(Dispatchers.Main){
+                id.value = d1.await()
+                name.value = d2.await()
+                price.value = d3.await()
+                date.value = d4.await()
+            }
+
+
+        }.join()
     }
 
 
