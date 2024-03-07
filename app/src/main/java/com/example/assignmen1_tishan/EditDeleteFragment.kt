@@ -64,6 +64,9 @@ class EditDeleteFragment : Fragment() {
         viewModelEdit = ViewModelProvider(this,factory).get(ExpenseDatabaseViewModel::class.java)
         binding.myViewModel = viewModelEdit
         binding.lifecycleOwner = this
+        binding.deleteButton.setOnClickListener {
+            viewModelEdit.delete(Expense(id!!,name!!,price!!.toDouble(),date!!))
+        }
         lifecycleScope.launch() {
             viewModelEdit.setExpenseData(Expense(id!!, name!!, price!!.toDouble(), date!!))
         }
