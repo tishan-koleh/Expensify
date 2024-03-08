@@ -81,6 +81,7 @@ class HomeFragment : Fragment() {
         try {
 
             lifecycleScope.launch {
+                binding.userName.text = "Welcome "+requireArguments().getString("user_name")+" !"
                 val count = viewModelHome.getCount()
                 binding.countTv.text = count.toString()
                 //Average

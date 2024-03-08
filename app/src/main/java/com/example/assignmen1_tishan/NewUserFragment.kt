@@ -5,9 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.example.assignmen1_tishan.authentication.SharedPreferencesManager
 import com.example.assignmen1_tishan.databinding.FragmentNewUserBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +27,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class NewUserFragment : Fragment() {
     private lateinit var binding : FragmentNewUserBinding
+    private lateinit var preferences:SharedPreferencesManager
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,8 +46,18 @@ class NewUserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_new_user, container, false)
+
+        GlobalScope.launch(Dispatchers.IO) {
+             preferences = SharedPreferencesManager.getInstance(this@NewUserFragment.requireContext(),"123")
+        }
+
         binding.createUser.setOnClickListener {
-            it.findNavController().navigate(R.id.action_newUserFragment_to_homeFragment)
+            val name = binding.nameTv.text.toString()
+            val pass = binding.passwordTv.text.toString()
+            preferences.saveData(name,pass)
+            var bundle = bundleOf("user_name" to name)
+            Toast.makeText(this@NewUserFragment.requireContext(),"User Created",Toast.LENGTH_SHORT).show()
+            it.findNavController().navigate(R.id.action_newUserFragment_to_homeFragment,bundle)
         }
         return binding.root
     }

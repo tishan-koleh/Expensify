@@ -1,13 +1,16 @@
 package com.example.assignmen1_tishan
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.example.assignmen1_tishan.authentication.SharedPreferencesManager
 import com.example.assignmen1_tishan.databinding.FragmentLoginBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +25,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class LoginFragment : Fragment() {
     private lateinit var binding:FragmentLoginBinding
+    private lateinit var preference:SharedPreferencesManager
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -40,13 +44,24 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login, container, false)
+        preference = SharedPreferencesManager.getInstance(this@LoginFragment.requireContext(),"123")
         binding.button.setOnClickListener {
-            try {
-                it.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-            }catch (e:Exception)
-            {
-                Toast.makeText(this@LoginFragment.requireContext(),e.toString(),Toast.LENGTH_LONG).show()
+            val name = binding.userIdTv.text.toString()
+            val pass = binding.userPasswordTv.text.toString()
+            var bundle = bundleOf("user_name" to name)
+
+            if(pass.equals(preference.getData(name,""))) {
+                it.findNavController().navigate(R.id.action_loginFragment_to_homeFragment,bundle)
             }
+            else{
+                Toast.makeText(this@LoginFragment.requireContext(),"User Not Found",Toast.LENGTH_SHORT).show()
+                it.findNavController().navigate(R.id.action_loginFragment_to_newUserFragment)
+                }
+
+
+
+
+
         }
         return binding.root
     }
