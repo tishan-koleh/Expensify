@@ -57,7 +57,20 @@ class LoginFragment : Fragment() {
             val pass = binding.userPasswordTv.text.toString()
             var bundle = bundleOf("user_name" to name)
 
-            if(pass.equals(preference.getData(name,""))) {
+            if (name == ""|| pass==""){
+                AlertDialog.Builder(this.requireContext())
+                    .setMessage("Please enter Values in the Field")
+                    .setPositiveButton("Yes") { dialog, which ->
+                        // If the user confirms, finish the activity to exit the app
+                        
+                    }
+                    .setNegativeButton("No") { dialog, which ->
+                        // go back to ask login page
+                        it.findNavController().navigate(R.id.action_loginFragment_to_loginAskFragment)
+                    }
+                    .show()
+            }
+            else if(pass.equals(preference.getData(name,""))) {
                 it.findNavController().navigate(R.id.action_loginFragment_to_homeFragment,bundle)
             }
             else{

@@ -18,7 +18,7 @@
         android:id="@+id/view_transaction"
         android:layout_width="125dp"
         android:layout_height="51dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:text="View All"
         android:textAllCaps="true"
         android:textSize="16sp"
@@ -34,7 +34,7 @@
         android:id="@+id/avg_transaction"
         android:layout_width="125dp"
         android:layout_height="51dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:clickable="false"
         android:text="average"
         android:textAllCaps="true"
@@ -51,7 +51,7 @@
         android:id="@+id/count_transaction"
         android:layout_width="125dp"
         android:layout_height="51dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:clickable="false"
         android:text="count"
         android:textAllCaps="true"
@@ -67,7 +67,7 @@
         android:id="@+id/min_transaction"
         android:layout_width="125dp"
         android:layout_height="50dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:text="minimum"
         android:textAllCaps="true"
         android:textSize="16sp"
@@ -83,7 +83,7 @@
         android:id="@+id/max_transaction"
         android:layout_width="129dp"
         android:layout_height="51dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:text="maximum"
         android:textAllCaps="true"
         android:textSize="16sp"
@@ -98,7 +98,7 @@
         android:id="@+id/total_transaction"
         android:layout_width="125dp"
         android:layout_height="51dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:clickable="false"
         android:text="total"
         android:textAllCaps="true"
@@ -123,13 +123,13 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937" />
+        app:layout_constraintVertical_bias="0.892" />
 
     <Button
         android:id="@+id/add_transaction"
         android:layout_width="125dp"
         android:layout_height="50dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:text="Add"
         android:textAllCaps="true"
         android:textSize="16sp"
@@ -197,6 +197,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.74" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="transaction Details :"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.423" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
