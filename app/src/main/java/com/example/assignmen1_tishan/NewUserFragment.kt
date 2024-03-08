@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -52,12 +53,46 @@ class NewUserFragment : Fragment() {
         }
 
         binding.createUser.setOnClickListener {
-            val name = binding.nameTv.text.toString()
-            val pass = binding.passwordTv.text.toString()
-            preferences.saveData(name,pass)
-            var bundle = bundleOf("user_name" to name)
-            Toast.makeText(this@NewUserFragment.requireContext(),"User Created",Toast.LENGTH_SHORT).show()
-            it.findNavController().navigate(R.id.action_newUserFragment_to_homeFragment,bundle)
+
+            if(binding.nameTv.text.toString() == "" || binding.passwordTv.text.toString()== ""){
+
+                AlertDialog.Builder(this.requireContext())
+                    .setMessage("Please Enter Some values")
+                    .setPositiveButton("Yes") { dialog, which ->
+                        // If the user confirms, go to the home page
+
+                    }
+                    .setNegativeButton("No") { dialog, which ->
+                        // go back to ask login page
+                        it.findNavController().navigate(R.id.action_newUserFragment_to_loginAskFragment)
+                    }
+                    .show()
+            }
+            else{
+                val name = binding.nameTv.text.toString()
+                val pass = binding.passwordTv.text.toString()
+                preferences.saveData(name,pass)
+                var bundle = bundleOf("user_name" to name)
+
+                AlertDialog.Builder(this.requireContext())
+                    .setMessage("Are you sure you want to create an account?")
+                    .setPositiveButton("Yes") { dialog, which ->
+                        // If the user confirms, go to the home page
+                        it.findNavController().navigate(R.id.action_newUserFragment_to_homeFragment,bundle)
+                    }
+                    .setNegativeButton("No") { dialog, which ->
+                        // go back to ask login page
+                        it.findNavController().navigate(R.id.action_loginFragment_to_loginAskFragment)
+                    }
+                    .show()
+            }
+
+
+
+
+
+//            Toast.makeText(this@NewUserFragment.requireContext(),"User Created",Toast.LENGTH_SHORT).show()
+//            it.findNavController().navigate(R.id.action_newUserFragment_to_homeFragment,bundle)
         }
         return binding.root
     }
