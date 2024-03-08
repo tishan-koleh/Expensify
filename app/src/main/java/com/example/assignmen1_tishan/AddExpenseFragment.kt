@@ -1,20 +1,26 @@
 package com.example.assignmen1_tishan
 
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.assignmen1_tishan.dataBase.ExpenseDatabase
 import com.example.assignmen1_tishan.dataBase.ExpenseRepositary
 import com.example.assignmen1_tishan.databinding.FragmentAddExpenseBinding
 import com.example.assignmen1_tishan.viewModels.ExpenseDatabaseViewModel
 import com.example.assignmen1_tishan.viewModels.ExpenseDatabaseViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,12 +60,23 @@ class AddExpenseFragment : Fragment() {
         viewModel = ViewModelProvider(this,factory).get(ExpenseDatabaseViewModel::class.java)
         binding.myViewModel=viewModel
         binding.lifecycleOwner = this
+        CoroutineScope(Dispatchers.Main).launch {
+            binding.clearButton.setOnClickListener {
+                val itemNameString = "" // Your string value here
+                val editableItemName = Editable.Factory.getInstance().newEditable(itemNameString)
+                binding.itemName.text = editableItemName
+                binding.itemDate.text = editableItemName
+                binding.itemPrice.text = editableItemName
+            }
+        }
         binding.addButton.setOnClickListener {
             try {
+
                 viewModel.addButtonAction()
                 viewModel.expenses.observe(viewLifecycleOwner, Observer {
                     Log.i("Tishan","${it.toString()}")
-                    //Toast.makeText(this@AddExpenseFragment.requireContext(),it.toString(),Toast.LENGTH_LONG).show()
+                    //Toast.makeText(this@AddExpenseFragment.requireContext(),"Expense Added",Toast.LENGTH_SHORT).show()
+
                 })
             }
             catch (e:Exception)
@@ -67,6 +84,18 @@ class AddExpenseFragment : Fragment() {
                 Log.i("MYTAG","${e.toString()}")
                 Toast.makeText(this@AddExpenseFragment.requireContext(),e.toString(),Toast.LENGTH_LONG).show()
             }
+
+            AlertDialog.Builder(this.requireContext())
+                .setMessage("Expense Added, Do you want to add another Expense")
+                .setPositiveButton("Yes") { dialog, which ->
+                    // If the user confirms, finish the activity to exit the app
+
+                }
+                .setNegativeButton("No"){dialog,which->
+                    it.findNavController().navigate(R.id.action_addExpenseFragment_to_viewTransactionsFragment)
+                } // Do nothing if the user cancels
+                .show()
+
 
 
         }

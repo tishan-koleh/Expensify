@@ -1,15 +1,22 @@
 package com.example.assignmen1_tishan.viewModels
 
+import android.util.Patterns
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
+import com.example.assignmen1_tishan.R
 import com.example.assignmen1_tishan.dataBase.Expense
 import com.example.assignmen1_tishan.dataBase.ExpenseRepositary
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.regex.Pattern
 
 class ExpenseDatabaseViewModel(private val repo : ExpenseRepositary):ViewModel() {
 
@@ -27,6 +34,7 @@ class ExpenseDatabaseViewModel(private val repo : ExpenseRepositary):ViewModel()
         val name = inputItemName.value?:return
         val price = inputPrice.value?.toDoubleOrNull()?:return
         val date = inputDate.value?:return
+
         insert(Expense(0,name,price,date))
         inputItemName.value = ""
         inputPrice.value = ""
@@ -137,6 +145,8 @@ class ExpenseDatabaseViewModel(private val repo : ExpenseRepositary):ViewModel()
         }.join()
         return x!!
     }
+
+
 
 
 

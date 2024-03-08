@@ -12,10 +12,12 @@
         tools:layout="@layout/fragment_login_ask" >
         <action
             android:id="@+id/action_loginAskFragment_to_newUserFragment"
-            app:destination="@id/newUserFragment" />
+            app:destination="@id/newUserFragment"
+            app:enterAnim="@anim/slide_in_right" />
         <action
             android:id="@+id/action_loginAskFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/newUserFragment"
@@ -24,10 +26,12 @@
         tools:layout="@layout/fragment_new_user" >
         <action
             android:id="@+id/action_newUserFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_newUserFragment_to_loginAskFragment"
-            app:destination="@id/loginAskFragment" />
+            app:destination="@id/loginAskFragment"
+            app:enterAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -36,13 +40,16 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_loginFragment_to_newUserFragment"
-            app:destination="@id/newUserFragment" />
+            app:destination="@id/newUserFragment"
+            app:enterAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_loginFragment_to_loginAskFragment"
-            app:destination="@id/loginAskFragment" />
+            app:destination="@id/loginAskFragment"
+            app:enterAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -51,22 +58,28 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_viewTransactionsFragment"
-            app:destination="@id/viewTransactionsFragment" />
+            app:destination="@id/viewTransactionsFragment"
+            app:enterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_homeFragment_to_addExpenseFragment"
-            app:destination="@id/addExpenseFragment" />
+            app:destination="@id/addExpenseFragment"
+            app:enterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_homeFragment_to_avgFragment"
-            app:destination="@id/avgFragment" />
+            app:destination="@id/avgFragment"
+            app:enterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_homeFragment_to_maximumFragment"
-            app:destination="@id/maximumFragment" />
+            app:destination="@id/maximumFragment"
+            app:enterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_homeFragment_to_minimumFragment"
-            app:destination="@id/minimumFragment" />
+            app:destination="@id/minimumFragment"
+            app:enterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_homeFragment_to_totalFragment"
-            app:destination="@id/totalFragment" />
+            app:destination="@id/totalFragment"
+            app:enterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/viewTransactionsFragment"
@@ -75,10 +88,12 @@
         tools:layout="@layout/fragment_view_transactions" >
         <action
             android:id="@+id/action_viewTransactionsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_viewTransactionsFragment_to_editDeleteFragment"
-            app:destination="@id/editDeleteFragment" />
+            app:destination="@id/editDeleteFragment"
+            app:enterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/addExpenseFragment"
@@ -87,7 +102,8 @@
         tools:layout="@layout/fragment_add_expense" >
         <action
             android:id="@+id/action_addExpenseFragment_to_viewTransactionsFragment"
-            app:destination="@id/viewTransactionsFragment" />
+            app:destination="@id/viewTransactionsFragment"
+            app:enterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/avgFragment"
@@ -116,6 +132,10 @@
         tools:layout="@layout/fragment_edit_delete" >
         <action
             android:id="@+id/action_editDeleteFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_editDeleteFragment_to_viewTransactionsFragment"
+            app:destination="@id/viewTransactionsFragment" />
     </fragment>
 </navigation>

@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.example.assignmen1_tishan.dataBase.Expense
 import com.example.assignmen1_tishan.dataBase.ExpenseDatabase
 import com.example.assignmen1_tishan.dataBase.ExpenseRepositary
@@ -64,8 +65,15 @@ class EditDeleteFragment : Fragment() {
         viewModelEdit = ViewModelProvider(this,factory).get(ExpenseDatabaseViewModel::class.java)
         binding.myViewModel = viewModelEdit
         binding.lifecycleOwner = this
+
+//        binding.homeButton.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_editDeleteFragment_to_homeFragment)
+//        }
         binding.deleteButton.setOnClickListener {
             viewModelEdit.delete(Expense(id!!,name!!,price!!.toDouble(),date!!))
+            Toast.makeText(this@EditDeleteFragment.requireContext(),"Details Deleted!",Toast.LENGTH_SHORT).show()
+            it.findNavController().navigate(R.id.action_editDeleteFragment_to_viewTransactionsFragment)
+
         }
         lifecycleScope.launch() {
             viewModelEdit.setExpenseData(Expense(id!!, name!!, price!!.toDouble(), date!!))
@@ -80,6 +88,10 @@ class EditDeleteFragment : Fragment() {
                 try {
 
                     viewModelEdit.update(Expense(id!!, name!!, price!!.toDouble(), date!!))
+                    Toast.makeText(this@EditDeleteFragment.requireContext(),"Details Updated!",Toast.LENGTH_SHORT).show()
+
+                    it.findNavController().navigate(R.id.action_editDeleteFragment_to_viewTransactionsFragment)
+
                 }catch (e:Exception)
                 {
                     Log.d("MYTAG",e.toString())
